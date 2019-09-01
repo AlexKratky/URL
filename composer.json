@@ -1,0 +1,15 @@
+{
+    "name": "AlexKratky/URL",
+    "description": "Class to easy work with URL, getting its part etc.",
+    "keywords": ["php", "url", "route"],
+    "homepage": "https://panx.eu/",
+    "license": ["MIT"],
+    "authors": [{
+            "name": "Alex Kratky",
+            "homepage": "https://alexkratky.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    }
+}
