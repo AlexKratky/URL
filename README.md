@@ -1,5 +1,10 @@
 # URL
-PHP Class to easy work with URL, getting its part etc.
+PHP Class to easy work with URI, getting its part etc.
+
+[![Downloads this Month](https://img.shields.io/packagist/dm/alexkratky/url.svg)](https://packagist.org/packages/alexkratky/url)
+[![Repository size](https://img.shields.io/github/repo-size/alexkratky/URL)](https://github.com/AlexKratky/URL)
+[![License](https://img.shields.io/github/license/AlexKratky/URL)](https://github.com/AlexKratky/URL/blob/master/LICENSE)
+[![Version](https://img.shields.io/packagist/v/alexkratky/url)](https://packagist.org/packages/alexkratky/url)
 
 ```php
 <?php
