@@ -12,7 +12,7 @@
 
 namespace AlexKratky;
 
-class URL implements Iterator {
+class URL implements \Iterator {
     /**
      * @var string The string representing URL.
      */
