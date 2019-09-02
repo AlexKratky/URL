@@ -9,6 +9,7 @@
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @description Class to work with URLs. Part of panx-framework.
  */
+namespace AlexKratky;
 
 class URL implements Iterator {
     /**
