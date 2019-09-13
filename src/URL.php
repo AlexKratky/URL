@@ -10,9 +10,12 @@
  * @description Class to work with URLs. Part of panx-framework.
  */
 
+declare (strict_types = 1);
+
 namespace AlexKratky;
 
-class URL implements \Iterator {
+class URL implements \Iterator
+{
     /**
      * @var string The string representing URL.
      */
@@ -28,10 +31,11 @@ class URL implements \Iterator {
 
     /**
      * Calls urlString() method with passed parameters.
-     * @param string|null $URL The URI to work with, if its sets to null, it will use the current URI. 
+     * @param string|null $URL The URI to work with, if its sets to null, it will use the current URI.
      * @param boolean $DECODE If its sets to true, the URI will be decoded using urldecode().
      */
-    public function __construct($URL = null, $DECODE = true) {
+    public function __construct(?string $URL = null, ?bool $DECODE = true)
+    {
         $this->urlString($URL, $DECODE);
     }
 
@@ -40,13 +44,18 @@ class URL implements \Iterator {
      * @param string $URL_TO_CHECK The URI to work with, if its sets to null, it will use the current URI.
      * @param boolean $DECODE If its sets to true, the URI will be decoded using urldecode().
      */
-    public function urlString($URL_TO_CHECK = null, $DECODE = true) {
-        if($URL_TO_CHECK == null)
+    public function urlString(?string $URL_TO_CHECK = null, ?bool $DECODE = true): void
+    {
+        if ($URL_TO_CHECK == null) {
             $URL_TO_CHECK = $_SERVER['REQUEST_URI'];
-        if($DECODE)
+        }
+
+        if ($DECODE) {
             $this->URL_STRING = urldecode($URL_TO_CHECK);
-        else 
+        } else {
             $this->URL_STRING = $URL_TO_CHECK;
+        }
+
         $this->URL_STRING = explode("?", $this->URL_STRING);
 
         $this->URL_STRING = $this->URL_STRING[0];
@@ -56,7 +65,7 @@ class URL implements \Iterator {
         $this->URL_STRING = rtrim($this->URL_STRING, "/");
 
         $this->URL_LINK = explode("/", $this->URL_STRING);
-        if($this->URL_STRING == "") {
+        if ($this->URL_STRING == "") {
             $this->URL_STRING = "/";
         }
         for ($x = 0; $x < count($this->URL_LINK); $x++) {
@@ -69,21 +78,24 @@ class URL implements \Iterator {
     /**
      * @return string Returns the string representing URL.
      */
-    public function getString() {
+    public function getString(): string
+    {
         return $this->URL_STRING;
     }
 
     /**
      * @return array Returns the array containing URL elements (URL splited by '/'). First element [0] is empty.
      */
-    public function getLink() {
+    public function getLink(): array
+    {
         return $this->URL_LINK;
     }
 
     /**
      * @return int Returns the count of URL elements.
      */
-    public function getCount() {
+    public function getCount(): int
+    {
         return $this->ELEMENTS;
     }
 
@@ -92,26 +104,26 @@ class URL implements \Iterator {
     {
         reset($this->URL_LINK);
     }
-  
+
     public function current()
     {
         return current($this->URL_LINK);
     }
-  
-    public function key() 
+
+    public function key()
     {
         return key($this->URL_LINK);
     }
-  
-    public function next() 
+
+    public function next()
     {
         return next($this->URL_LINK);
     }
-  
+
     public function valid()
     {
         $key = key($this->URL_LINK);
-        $var = ($key !== NULL && $key !== FALSE);
+        $var = ($key !== null && $key !== false);
         return $var;
     }
 
