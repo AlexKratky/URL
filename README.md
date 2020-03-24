@@ -8,6 +8,9 @@ PHP Class to easy work with URI, getting its part etc.
 
 ```php
 <?php
+require 'vendor/autoload.php';
+use AlexKratky\URL;
+
 // e.g. visiting https://panx.eu/docs/v0.2.4/getting-started/
 $url = new URL();
 $url->getString();      //  /docs/v0.2.4/getting-started
