@@ -5,7 +5,7 @@
  * @link https://panx.eu/docs/                          Documentation
  * @link https://github.com/AlexKratky/panx-framework/  Github Repository
  * @author Alex Kratky <info@alexkratky.cz>
- * @copyright Copyright (c) 2019 Alex Kratky
+ * @copyright Copyright (c) 2020 Alex Kratky
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @description Class to work with URLs. Part of panx-framework.
  */
@@ -20,14 +20,11 @@ class URL implements \Iterator
      * @var string The string representing URL.
      */
     private $URL_STRING;
+
     /**
      * @var array The array containing URL elements (URL splited by '/').
      */
-    private $URL_LINK = array();
-    /**
-     * @var int The count of URL elements.
-     */
-    private $ELEMENTS = 0;
+    private $URL_ELEMENTS = array();
 
     /**
      * Calls urlString() method with passed parameters.
@@ -46,32 +43,22 @@ class URL implements \Iterator
      */
     public function urlString(?string $URL_TO_CHECK = null, ?bool $DECODE = true): void
     {
-        if ($URL_TO_CHECK == null) {
-            $URL_TO_CHECK = $_SERVER['REQUEST_URI'];
-        }
+        if ($URL_TO_CHECK == null) $URL_TO_CHECK = $_SERVER['REQUEST_URI'];
 
-        if ($DECODE) {
-            $this->URL_STRING = urldecode($URL_TO_CHECK);
-        } else {
-            $this->URL_STRING = $URL_TO_CHECK;
-        }
+        $this->URL_STRING = $URL_TO_CHECK;
 
-        $this->URL_STRING = explode("?", $this->URL_STRING);
+        if ($DECODE) $this->URL_STRING = urldecode($this->URL_STRING);
 
-        $this->URL_STRING = $this->URL_STRING[0];
+        $this->URL_STRING = explode("?", $this->URL_STRING)[0];
+
         while (strpos($this->URL_STRING, "//") !== false) {
             $this->URL_STRING = str_replace("//", "/", $this->URL_STRING);
         }
         $this->URL_STRING = rtrim($this->URL_STRING, "/");
+        $this->URL_ELEMENTS = explode("/", $this->URL_STRING);
 
-        $this->URL_LINK = explode("/", $this->URL_STRING);
         if ($this->URL_STRING == "") {
             $this->URL_STRING = "/";
-        }
-        for ($x = 0; $x < count($this->URL_LINK); $x++) {
-            if ($this->URL_LINK[$x] != "") {
-                $this->ELEMENTS++;
-            }
         }
     }
 
@@ -86,43 +73,48 @@ class URL implements \Iterator
     /**
      * @return array Returns the array containing URL elements (URL splited by '/'). First element [0] is empty.
      */
-    public function getLink(): array
+    public function getElements(): array
     {
-        return $this->URL_LINK;
+        return $this->URL_ELEMENTS;
     }
+
+    /**
+     * alias for getElements()
+     */
+    public function getLink(): array {return $this->getElements();}
 
     /**
      * @return int Returns the count of URL elements.
      */
     public function getCount(): int
     {
-        return $this->ELEMENTS;
+        return (count($this->URL_ELEMENTS) - 1);
     }
 
     //ITERATION
     public function rewind()
     {
-        reset($this->URL_LINK);
+        reset($this->URL_ELEMENTS);
     }
 
     public function current()
     {
-        return current($this->URL_LINK);
+        return current($this->URL_ELEMENTS);
     }
 
     public function key()
     {
-        return key($this->URL_LINK);
+        return key($this->URL_ELEMENTS);
     }
 
     public function next()
     {
-        return next($this->URL_LINK);
+        return next($this->URL_ELEMENTS);
     }
 
     public function valid()
     {
-        $key = key($this->URL_LINK);
+        $key = key($this->URL_ELEMENTS);
         $var = ($key !== null && $key !== false);
         return $var;
     }
