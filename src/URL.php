@@ -1,10 +1,10 @@
 <?php
 /**
  * @name URL.php
- * @link https://alexkratky.cz                          Author website
+ * @link https://alexkratky.com                         Author website
  * @link https://panx.eu/docs/                          Documentation
- * @link https://github.com/AlexKratky/panx-framework/  Github Repository
- * @author Alex Kratky <info@alexkratky.cz>
+ * @link https://github.com/AlexKratky/URL/             Github Repository
+ * @author Alex Kratky <alex@panx.dev>
  * @copyright Copyright (c) 2020 Alex Kratky
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @description Class to work with URLs. Part of panx-framework.
@@ -117,6 +117,10 @@ class URL implements \Iterator
         $key = key($this->URL_ELEMENTS);
         $var = ($key !== null && $key !== false);
         return $var;
+    }
+
+    public function __toString() {
+        return $this->getString();
     }
 
 }
